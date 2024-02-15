@@ -1,0 +1,63 @@
+1)
+
+mysql> select etunimi, sukunimi, arvosana from opiskelija o join arviointi a on o.idopiskelija=a.idopiskelija
+    -> where arvosana like '0';
++---------+----------+----------+
+| etunimi | sukunimi | arvosana |
++---------+----------+----------+
+| Aku     | Ankka    |        0 |
++---------+----------+----------+
+1 row in set (0.01 sec)
+
+
+2)
+
+select etunimi, sukunimi, arvosana from opiskelija o join arviointi a on o.idopiskelija=a.idopiskelija
+    -> where idopintojakso like '3' and arvosana>'0';
++---------+----------+----------+
+| etunimi | sukunimi | arvosana |
++---------+----------+----------+
+| Aku     | Ankka    |        1 |
+| Roope   | Ankka    |        2 |
+| Iines   | Ankka    |        3 |
+| Mikki   | Hiiri    |        4 |
+| Hessu   | Hopo     |        5 |
++---------+----------+----------+
+5 rows in set (0.00 sec)
+
+
+3)
+select etunimi, sukunimi, nimi from opiskelija op join arviointi a on op.idopiskelija=a.idopiskelija
+    -> join opintojakso oj on a.idopintojakso=oj.idopintojakso where etunimi like 'Hessu';
++---------+----------+-------------+
+| etunimi | sukunimi | nimi        |
++---------+----------+-------------+
+| Hessu   | Hopo     | Tietokannat |
+| Hessu   | Hopo     | Fysiikka 3  |
++---------+----------+-------------+
+2 rows in set (0.00 sec)
+
+
+4)
+select etunimi, avg(arvosana) from opiskelija o join arviointi a on o.idopiskelija=a.idopiskelija
+    -> where etunimi like 'Aku' group by etunimi;
++---------+---------------+
+| etunimi | avg(arvosana) |
++---------+---------------+
+| Aku     |        0.6667 |
++---------+---------------+
+1 row in set (0.00 sec)
+
+5)
+select nimi, arvosana from arviointi a right join opintojakso oj on a.idopintojakso=oj.idopintojakso
+    -> where arvosana is null;
++--------------------------+----------+
+| nimi                     | arvosana |
++--------------------------+----------+
+| Liike-elaman tapatietous |     NULL |
+| Elektroniikan perusteet  |     NULL |
+| Kellarihumppa            |     NULL |
+| Matematiikka 2           |     NULL |
+| VHDL-kieli               |     NULL |
++--------------------------+----------+
+5 rows in set (0.00 sec)
